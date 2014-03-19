@@ -1,8 +1,8 @@
 production:
   adapter: postgresql
   encoding: unicode
-  database: <%= db_database %>
+  database: <%= remote_db_config(:database) %>
   pool: 5
-  username: <%= db_user %>
-  password: <%= db_password %>
-  host: <%= db_host %>
+  username: <%= remote_db_config(:username) %>
+  password: <%= remote_db_config(:password) %>
+  host: localhost

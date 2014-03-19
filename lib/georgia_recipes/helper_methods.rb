@@ -84,7 +84,3 @@ def close_sessions
   sessions.values.each { |session| session.close }
   sessions.clear
 end
-
-def db_config_file
-  @db_config_file ||= YAML.load(File.read('config/database.yml'))
-end
