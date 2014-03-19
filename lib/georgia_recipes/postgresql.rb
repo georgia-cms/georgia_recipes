@@ -41,7 +41,7 @@ Capistrano::Configuration.instance.load do
       run %Q{#{sudo} -u postgres pg_dump #{remote_db_name} --format=tar > #{shared_path}/backups/#{database_filename}}
       get "#{shared_path}/backups/#{database_filename}", "/tmp/#{database_filename}"
       run "rm #{shared_path}/backups/#{database_filename}"
-      run_locally "#{sudo} -u postgres pg_restore /tmp/#{database_filename} --clean --format=tar --dbname=#{local_db_user}"
+      run_locally "#{sudo} -u postgres pg_restore /tmp/#{database_filename} --clean --format=tar --dbname=#{local_db_name}"
       run_locally "rm /tmp/#{database_filename}"
     end
 
@@ -73,7 +73,7 @@ Capistrano::Configuration.instance.load do
     end
 
     def table_name
-      @table_name ||= Capistrano::CLI.ui.ask "Which remote database table would you like to pull?"
+      @table_name ||= ask("Which remote database table would you like to pull?")
     end
 
     def create_user
@@ -87,7 +87,7 @@ Capistrano::Configuration.instance.load do
     def local_db_config(key)
       begin
         config = File.read('config/database.yml')
-        YAML.load(config)["development"][key]
+        YAML.load(config)["development"][key.to_s]
       rescue
         request_from_prompt(key)
       end
@@ -96,7 +96,7 @@ Capistrano::Configuration.instance.load do
     def remote_db_config(key)
       begin
         config = capture("cat #{shared_path}/config/database.yml")
-        YAML.load(config)[rails_env][key]
+        YAML.load(config)[rails_env][key.to_s]
       rescue
         request_from_prompt(key, env: rails_env)
       end
