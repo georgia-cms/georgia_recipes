@@ -6,7 +6,7 @@ Capistrano recipes for Georgia CMS. Helps you setup a VM with the necessary depe
 
 Add this line to your application's Gemfile:
 
-    gem 'georgia_recipes'
+    gem 'georgia_recipes', group: :development
 
 And then execute:
 
