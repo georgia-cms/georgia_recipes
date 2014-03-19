@@ -1,15 +1,10 @@
 require 'capistrano'
 require 'capistrano/cli'
+require 'georgia_recipes/helper_methods'
 
 Capistrano::Configuration.instance.load do
 
   set_default(:host) { ask("What is the fully qualified domain name?") }
-  set_default(:remote_db_user) { db_config_file["#{rails_env}"]["username"] rescue ask("Remote database user: ") }
-  set_default(:remote_db_user) { db_config_file["#{rails_env}"]["database"] rescue ask("Remote database name: ") }
-  set_default(:remote_db_user) { db_config_file["#{rails_env}"]["password"] rescue ask("Remote database password: ") }
-  set_default(:local_db_user) { db_config_file["development"]["username"] rescue ask("Local database user: ") }
-  set_default(:local_db_user) { db_config_file["development"]["database"] rescue ask("Local database name: ") }
-  set_default(:local_db_user) { db_config_file["development"]["password"] rescue ask("Local database password: ") }
 
   namespace :deploy do
 
