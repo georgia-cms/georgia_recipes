@@ -1,6 +1,6 @@
-# GeorgiaRecipes
+# Georgia Recipes
 
-TODO: Write a gem description
+Capistrano recipes for Georgia CMS. Helps you setup a VM with the necessary dependencies to run a full Rails stack with Georgia CMS
 
 ## Installation
 
@@ -18,7 +18,26 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Drop this line of code in your `config/deploy.rb` file to include additional recipes.
+
+    require 'georgia_recipes/all'
+
+Or require them individually:
+
+``` ruby
+require 'georgia_recipes/base'
+require 'georgia_recipes/chef'
+require 'georgia_recipes/elasticsearch'
+require 'georgia_recipes/memcached'
+require 'georgia_recipes/mongodb'
+require 'georgia_recipes/nginx'
+require 'georgia_recipes/unicorn'
+require 'georgia_recipes/rbenv'
+require 'georgia_recipes/redis'
+require 'georgia_recipes/solr'
+require 'georgia_recipes/postgresql'
+...
+```
 
 ## Contributing
 

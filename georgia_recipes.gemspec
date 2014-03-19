@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = GeorgiaRecipes::VERSION
   spec.authors       = ["Mathieu Gagne"]
   spec.email         = ["gagne.mathieu@hotmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.description   = %q{Capistrano recipes for Georgia CMS.}
+  spec.summary       = %q{Capistrano recipes for Georgia CMS. Helps you setup a VM with the necessary dependencies to run a full Rails stack with Georgia CMS}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.5"
-  spec.add_development_dependency "rake"
+  spec.add_dependency "capistrano", '~> 2'
+  spec.add_dependency "capistrano-ext"
+  spec.add_dependency "capistrano-maintenance"
 end
