@@ -1,0 +1,14 @@
+{
+  "monit": {
+    "bind_host" : "<%= host %>",
+    "bind_port" : "49555",
+    "allowed_hosts" : ["0.0.0.0/0.0.0.0"],
+    "notify_email" : "<%= ask("What email should monit notify to?") %>",
+    "mail_format" : {
+      "from" : "monit@<%= host %>"
+    }
+  },
+  "run_list" : [
+    "recipe[monit]"
+  ]
+}

@@ -1,0 +1,4 @@
+check process sidekiq
+  with pidfile <%= shared_path %>/pids/sidekiq.pid
+  start program = "/usr/bin/sudo su <%= user %> /bin/bash -c 'export PATH="$HOME/.rbenv/bin:$PATH" ; eval "$(rbenv init -)"; cd <%= current_path %>; RAILS_ENV=production bundle exec sidekiq -d -C config/sidekiq.yml -P <%= shared_path %>/pids/sidekiq.pid -L log/sidekiq.log'" with timeout 90 seconds
+  stop program = "/bin/bash -c '/bin/kill -TERM `cat <%= shared_path %>/pids/sidekiq.pid`'" with timeout 180 seconds

@@ -1,0 +1,11 @@
+{
+  "jetty" : {
+    "port" : 8983
+  },
+  "solr" : {
+    "data" : "<%= shared_path %>/solr/data"
+  },
+  "run_list" : [
+    "recipe[hipsnip-solr]"
+  ]
+}
