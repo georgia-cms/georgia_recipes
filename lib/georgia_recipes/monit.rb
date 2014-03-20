@@ -31,7 +31,6 @@ Capistrano::Configuration.instance.load do
     task :setup do
       nginx
       postgresql
-      sidekiq
       unicorn
       syntax
       reload
