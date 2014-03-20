@@ -8,6 +8,11 @@ Capistrano::Configuration.instance.load do
       run "#{sudo} apt-get -y install redis-server"
     end
 
+    desc "Uninstall Redis"
+    task :install, roles: :app do
+      run "#{sudo} apt-get -y remove redis-server"
+    end
+
     desc "Start Redis Server"
     task :start, roles: :app do
       run "redis-server"
