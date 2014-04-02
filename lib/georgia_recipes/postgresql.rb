@@ -102,7 +102,7 @@ Capistrano::Configuration.instance.load do
       end
     end
 
-    def request_from_prompt key, env='Development'
+    def request_from_prompt key, env: 'Development'
       case key
       when :database
         ask("#{env} database name: ")
