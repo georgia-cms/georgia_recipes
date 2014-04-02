@@ -48,7 +48,7 @@ Capistrano::Configuration.instance.load do
     desc "Push database to remote server"
     task :push, roles: :db do
       if are_you_sure?
-        run_locally %Q{#{sudo} -u postgres pg_dump #{local_db_user} --format=tar > /tmp/#{database_filename}}
+        run_locally %Q{#{sudo} -u postgres pg_dump #{local_db_name} --format=tar > /tmp/#{database_filename}}
         upload "/tmp/#{database_filename}", "/tmp/#{database_filename}"
         run_locally "rm /tmp/#{database_filename}"
         run "#{sudo} -u postgres pg_restore /tmp/#{database_filename} --clean --format=tar --dbname=#{remote_db_name}"
