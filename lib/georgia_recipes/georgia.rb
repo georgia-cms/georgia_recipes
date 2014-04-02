@@ -16,9 +16,7 @@ Capistrano::Configuration.instance.load do
     after "georgia:install", "nginx:install"
     after "georgia:install", "pg:install"
     after "georgia:install", "memcached:install"
-    after "georgia:install", "redis:install"
     after "georgia:install", "newrelic:install"
-    after "georgia:install", "backup:install"
 
     task :setup do
       # Trigger callbacks for setting up a rails stack after install
@@ -29,7 +27,6 @@ Capistrano::Configuration.instance.load do
     after "georgia:setup", "unicorn:setup"
     after "georgia:setup", "monit:setup"
     after "georgia:setup", "backup:setup"
-    after "georgia:setup", "sidekiq:setup"
     after "georgia:setup", "newrelic:setup"
 
     task :seed, roles: :web do
