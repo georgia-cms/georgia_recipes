@@ -1,7 +1,7 @@
 require 'georgia_recipes/base'
 
 # require 'georgia_recipes/apache'
-require 'georgia_recipes/assets'
+# require 'georgia_recipes/assets'
 # require 'georgia_recipes/backup'
 # require 'georgia_recipes/carrierwave'
 require 'georgia_recipes/chef'
