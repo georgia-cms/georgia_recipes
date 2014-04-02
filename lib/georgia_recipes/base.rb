@@ -43,7 +43,7 @@ Capistrano::Configuration.instance.load do
   end
 
   def github_handle
-    Capistrano::CLI.ui.ask "Which Github handle would you like to add?"
+    ask "Which Github handle would you like to add?"
   end
 
 end
