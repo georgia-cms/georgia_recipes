@@ -61,7 +61,8 @@ end
 
 # run a command on the server with a different user
 def with_user(new_user, new_pass, &block)
-  old_user, old_pass = user, password
+  old_user = user
+  old_pass = (exists?(password) ? password : '')
   set_user(new_user, new_pass)
   begin
     yield

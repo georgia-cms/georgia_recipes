@@ -10,7 +10,7 @@ Capistrano::Configuration.instance.load do
 
     desc "Adds user 'deployer' with your ssh keys"
     task :bootstrap do
-      with_user('root') do
+      with_user('root', password) do
         run "adduser --disabled-password --gecos '' deployer"
         run "echo 'deployer ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
         run "apt-get update ; apt-get -y install curl"
