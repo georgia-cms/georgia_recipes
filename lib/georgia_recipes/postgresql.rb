@@ -23,7 +23,7 @@ Capistrano::Configuration.instance.load do
     task :reset, roles: :db do
       if are_you_sure?
         deploy.stop
-        run %Q{#{sudo} -u postgres psql -c "drop database #{db_database};"}
+        run %Q{#{sudo} -u postgres psql -c "drop database #{remote_db_name};"}
         create_db
         deploy.start
       end
