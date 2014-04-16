@@ -29,7 +29,7 @@ Capistrano::Configuration.instance.load do
   end
 
   namespace :ruby do
-    task :install do
+    task :install, roles: :app do
       run "rbenv install #{ruby_version}"
       run "rbenv global #{ruby_version}"
       run "gem install bundler --no-ri --no-rdoc"
