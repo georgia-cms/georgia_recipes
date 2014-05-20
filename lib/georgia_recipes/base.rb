@@ -21,7 +21,9 @@ Capistrano::Configuration.instance.load do
 
   namespace :ssh do
     task :reset_keys do
-      run "curl https://github.com/#{github_handle}.keys -o ~/.ssh/authorized_keys --create-dirs"
+      with_user('root', password) do
+        run "curl https://github.com/#{github_handle}.keys -o ~/.ssh/authorized_keys --create-dirs"
+      end
     end
     task :add_keys do
       run "sed -i -e '$a\' ~/.ssh/authorized_keys"
