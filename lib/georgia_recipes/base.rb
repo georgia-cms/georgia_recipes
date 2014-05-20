@@ -14,7 +14,7 @@ Capistrano::Configuration.instance.load do
         run "adduser --disabled-password --gecos '' deployer"
         run "echo 'deployer ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
         run "apt-get update ; apt-get -y install curl"
-        run "sudo -u deployer curl https://github.com/#{github_handle}.keys -o /home/deployer/.ssh/authorized_keys --create-dirs"
+        update_keys
       end
     end
   end
@@ -22,7 +22,7 @@ Capistrano::Configuration.instance.load do
   namespace :ssh do
     task :reset_keys do
       with_user('root', password) do
-        run "curl https://github.com/#{github_handle}.keys -o ~/.ssh/authorized_keys --create-dirs"
+        update_keys
       end
     end
     task :add_keys do
@@ -46,6 +46,10 @@ Capistrano::Configuration.instance.load do
 
   def github_handle
     ask "Which Github handle would you like to add?"
+  end
+
+  def update_keys
+    run "sudo -u deployer curl https://github.com/#{github_handle}.keys -o /home/deployer/.ssh/authorized_keys --create-dirs"
   end
 
 end
