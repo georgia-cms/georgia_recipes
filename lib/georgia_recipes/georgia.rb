@@ -13,6 +13,7 @@ Capistrano::Configuration.instance.load do
     after "georgia:install", "chef:install"
     after "georgia:install", "monit:install"
     after "georgia:install", "imagemagick:install"
+    after "georgia:install", "nodejs:install"
     after "georgia:install", "nginx:install"
     after "georgia:install", "pg:install"
     after "georgia:install", "memcached:install"
