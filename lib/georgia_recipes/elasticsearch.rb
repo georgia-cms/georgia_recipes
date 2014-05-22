@@ -1,6 +1,6 @@
 Capistrano::Configuration.instance.load do
 
-  set_default :es_version, "0.90.11"
+  set_default :es_version, "1.2.0"
 
   namespace :elasticsearch do
     desc "Install latest stable release of elasticsearch"
