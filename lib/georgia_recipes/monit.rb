@@ -3,13 +3,8 @@ Capistrano::Configuration.instance.load do
 
     desc "Install Monit. Requires Chef (chef:install)"
     task :install, roles: :app do
-      run "mkdir -p cookbooks"
-      git_pull_or_clone('cookbooks/yum', 'git@github.com:opscode-cookbooks/yum.git')
-      git_pull_or_clone('cookbooks/sysctl', 'git@github.com:rcbops-cookbooks/sysctl.git')
-      git_pull_or_clone('cookbooks/apt', 'git@github.com:opscode-cookbooks/apt.git')
-      git_pull_or_clone('cookbooks/osops-utils', 'git@github.com:rcbops-cookbooks/osops-utils.git')
-      git_pull_or_clone('cookbooks/monit', 'git@github.com:rcbops-cookbooks/monit.git')
-      config
+      run "#{sudo} apt-get update"
+      run "#{sudo} apt-get install monit"
     end
 
     task :config, roles: :app do
