@@ -27,7 +27,6 @@ Capistrano::Configuration.instance.load do
     after "georgia:setup", "pg:setup"
     after "georgia:setup", "unicorn:setup"
     after "georgia:setup", "monit:setup"
-    after "georgia:setup", "backup:setup"
     after "georgia:setup", "newrelic:setup"
 
     task :seed, roles: :web do
