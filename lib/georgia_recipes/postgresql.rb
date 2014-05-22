@@ -6,9 +6,9 @@ Capistrano::Configuration.instance.load do
 
     desc "Install the latest stable release of PostgreSQL."
     task :install, roles: :db, only: {primary: true} do
-      run "#{sudo} add-apt-repository -y ppa:pitti/postgresql"
+      run "#{sudo} add-apt-repository -y ppa:pitti/postgresql" unless ubuntu_release =~ /14.04/
       run "#{sudo} apt-get -y update"
-      run "#{sudo} apt-get -y install postgresql libpq-dev"
+      run "#{sudo} apt-get -y install postgresql postgresql-contrib libpq-dev"
     end
 
     desc "Generate the database.yml configuration file."
