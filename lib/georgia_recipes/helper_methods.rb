@@ -1,3 +1,7 @@
+def ubuntu_release
+  @ubuntu_release ||= capture("lsb_release -r | awk '{ print $2 }'")
+end
+
 def timestamp
   @timestamp ||= Time.now.strftime('%Y%m%d%H%M%S')
 end
