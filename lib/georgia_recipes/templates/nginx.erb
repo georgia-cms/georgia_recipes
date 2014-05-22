@@ -2,13 +2,8 @@ upstream <%= application %>_unicorn {
   server unix:/tmp/unicorn.<%= application %>.sock fail_timeout=0;
 }
 server {
-  listen 80;
-  server_name <%= host %>;
-  return 301 http://www.<%= host %>$request_uri;
-}
-server {
   listen 80 default;
-  server_name www.<%= host %>;
+  server_name <%= host %> www.<%= host %>;
   root <%= current_path %>/public;
 
   location ^~ /assets/ {
