@@ -38,12 +38,8 @@ Capistrano::Configuration.instance.load do
       run "cd #{current_path} && bundle exec rake georgia:upgrade RAILS_ENV=#{rails_env}"
     end
 
-    namespace :tire do
-      task :reindex, roles: :app do
-        ['Georgia::Page', 'Ckeditor::Asset', 'Ckeditor::Picture', 'ActsAsTaggableOn::Tag'].each do |model|
-          run "cd #{current_path} && bundle exec rake environment tire:import CLASS=#{model} FORCE=true RAILS_ENV=#{rails_env}"
-        end
-      end
+    task :create_indices, roles: :web do
+      run "cd #{current_path} && bundle exec rake georgia:create_indices RAILS_ENV=#{rails_env}"
     end
 
   end
