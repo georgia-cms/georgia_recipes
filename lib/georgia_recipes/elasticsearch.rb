@@ -5,6 +5,10 @@ Capistrano::Configuration.instance.load do
   namespace :elasticsearch do
     desc "Install latest stable release of elasticsearch"
     task :install, roles: :web do
+      run "#{sudo} apt-get update"
+      run "#{sudo} apt-get install -y openjdk-7-jre"
+      run "JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64"
+      run "export JAVA_HOME"
       run "wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-#{es_version}.deb"
       run "#{sudo} dpkg -i elasticsearch-#{es_version}.deb"
       run "rm elasticsearch-#{es_version}.deb"
