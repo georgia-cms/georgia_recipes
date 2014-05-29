@@ -10,6 +10,11 @@ Capistrano::Configuration.instance.load do
       run "rm elasticsearch-#{es_version}.deb"
     end
 
+    desc "Setup elasticsearch to run on startup"
+    task :setup, roles: :web do
+      run "#{sudo} update-rc.d elasticsearch defaults 95 10"
+    end
+
     %w[start stop restart force_reload status].each do |command|
       desc "#{command} elasticsearch"
       task command, roles: :web do
