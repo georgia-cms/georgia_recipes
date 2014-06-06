@@ -15,7 +15,7 @@ Capistrano::Configuration.instance.load do
     task :setup, roles: :app do
      sql = <<-SQL
       CREATE DATABASE #{remote_db_name};
-      GRANT ALL PRIVILEGES ON #{remote_db_name}.* TO #{db_user}@localhost IDENTIFIED BY '#{remote_db_password}';
+      GRANT ALL PRIVILEGES ON #{remote_db_name}.* TO #{remote_db_user}@localhost IDENTIFIED BY '#{remote_db_password}';
       SQL
 
       run "mysql --user=root -p --execute=\"#{sql}\"" do |channel, stream, data|
