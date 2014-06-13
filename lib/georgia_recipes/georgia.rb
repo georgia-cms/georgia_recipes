@@ -6,7 +6,6 @@ Capistrano::Configuration.instance.load do
       run "#{sudo} apt-get update"
       run "#{sudo} apt-get -y install vim python-software-properties software-properties-common subversion libxslt1-dev libxml2-dev git-core"
       run "ssh-keyscan github.com >> ~/.ssh/known_hosts"
-      run "ssh-keyscan git.motioneleven.com >> ~/.ssh/known_hosts"
     end
     before "georgia:install", "locale:setup"
     after "georgia:install", "rbenv:install"
