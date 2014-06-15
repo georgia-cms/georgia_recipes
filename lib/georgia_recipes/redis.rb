@@ -9,7 +9,7 @@ Capistrano::Configuration.instance.load do
     end
 
     desc "Uninstall Redis"
-    task :install, roles: :app do
+    task :uninstall, roles: :app do
       run "#{sudo} apt-get -y remove redis-server"
     end
 
