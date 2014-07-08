@@ -1,0 +1,47 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          puma
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Manage puma Stream Client
+# Description:       Start, Stop, Restart puma Stream Client
+### END INIT INFO
+set -e
+
+NAME=puma
+PIDFILE=<%= puma_pid %>
+DAEMON="/home/deployer/.rbenv/shims/bundle exec puma -C <%= puma_config %>"
+DIR=<%= current_path %>
+DAEMON_OPTS="RAILS_ENV=production"
+
+AS_USER=<%= puma_user %>
+set -u
+
+case "$1" in
+  start)
+    echo -n "Starting puma: "$NAME
+    start-stop-daemon --start --user $AS_USER --quiet --make-pidfile --pidfile $PIDFILE -d $DIR --exec $DAEMON -- $DAEMON_OPTS
+    echo "."
+  ;;
+  stop)
+    echo -n "Stopping puma: "$NAME
+    start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE
+    rm $PIDFILE
+    echo "."
+  ;;
+  restart)
+    echo -n "Restarting puma: "$NAME
+    start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile $PIDFILE
+    rm $PIDFILE
+    start-stop-daemon --start --user $AS_USER --quiet --make-pidfile --pidfile $PIDFILE -d $DIR --exec $DAEMON -- $DAEMON_OPTS
+    echo "."
+  ;;
+
+  *)
+    echo "Usage: "$1" {start|stop|restart}"
+    exit 1
+esac
+
+exit 0
