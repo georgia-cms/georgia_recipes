@@ -1,17 +1,12 @@
 #!/usr/bin/env puma
 
-# start puma with:
-# RAILS_ENV=production bundle exec puma -C ./config/puma.rb
-
-application_path = "<%= current_path %>"
-railsenv = "<%= rails_env %>"
-directory application_path
-environment railsenv
+directory "<%= current_path %>"
+environment "<%= rails_env %>"
 daemonize true
-pidfile "#{application_path}/tmp/pids/puma.pid"
-state_path "#{application_path}/tmp/pids/puma.state"
+pidfile "<%= puma_pid %>"
+state_path "<%= puma_state %>"
 stdout_redirect
-"#{application_path}/log/puma-#{railsenv}.stdout.log"
-"#{application_path}/log/puma-#{railsenv}.stderr.log"
+"<%= puma_stdout_log %>"
+"<%= puma_stderr_log %>"
 threads 0, 16
-bind "unix:///tmp/puma-#{railsenv}.sock"
+bind "unix:///tmp/puma-<%= rails_env %>.sock"
