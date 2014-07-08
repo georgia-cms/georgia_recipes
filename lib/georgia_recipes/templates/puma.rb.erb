@@ -5,8 +5,6 @@ environment "<%= rails_env %>"
 daemonize true
 pidfile "<%= puma_pid %>"
 state_path "<%= puma_state %>"
-stdout_redirect
-"<%= puma_stdout_log %>"
-"<%= puma_stderr_log %>"
+stdout_redirect "<%= puma_stdout_log %>", "<%= puma_stderr_log %>"
 threads 0, 16
 bind "unix:///tmp/puma-<%= rails_env %>.sock"
