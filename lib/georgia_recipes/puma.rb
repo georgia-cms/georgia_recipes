@@ -24,4 +24,8 @@ Capistrano::Configuration.instance.load do
     end
   end
 
+  after "deploy:restart", "puma:restart"
+  after "deploy:start", "puma:start"
+  after "deploy:stop", "puma:stop"
+
 end
