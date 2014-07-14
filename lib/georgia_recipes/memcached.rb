@@ -6,7 +6,7 @@ Capistrano::Configuration.instance.load do
     desc "Install Memcached"
     task :install, roles: :app do
       run "#{sudo} apt-get -y update"
-      run "#{sudo} apt-get install -y memcached"
+      run "#{sudo} apt-get install -y memcached libsasl2-dev"
     end
 
     desc "Setup Memcached"
