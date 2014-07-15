@@ -37,6 +37,7 @@ Capistrano::Configuration.instance.load do
     task(:sidekiq, roles: :app) { monit_config "sidekiq" }
     task(:solr, roles: :web) { monit_config "solr" }
     task(:mysql, roles: :web) { monit_config "mysql" }
+    task(:elasticsearch, roles: :web) { monit_config "elasticsearch" }
 
     def monit_config(name, destination = nil)
       destination ||= "/etc/monit/conf.d/#{name}.conf"
