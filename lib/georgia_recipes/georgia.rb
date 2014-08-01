@@ -3,9 +3,7 @@ Capistrano::Configuration.instance.load do
 
     desc "Install rails stack onto the server for Georgia CMS"
     task :install do
-      run "#{sudo} apt-get update"
-      run "#{sudo} apt-get -y install vim python-software-properties software-properties-common subversion libxslt1-dev libxml2-dev git-core"
-      run "ssh-keyscan github.com >> ~/.ssh/known_hosts"
+      base.install
     end
     before "georgia:install", "locale:setup"
     after "georgia:install", "rbenv:install"

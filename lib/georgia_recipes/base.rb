@@ -6,6 +6,14 @@ Capistrano::Configuration.instance.load do
 
   set_default(:host) { ask("What is the fully qualified domain name?") }
 
+  namespace :base do
+    task :install do
+      run "#{sudo} apt-get update"
+      run "#{sudo} apt-get -y install vim python-software-properties software-properties-common subversion libxslt1-dev libxml2-dev git-core"
+      run "ssh-keyscan github.com >> ~/.ssh/known_hosts"
+    end
+  end
+
   namespace :deploy do
 
     desc "Adds user 'deployer' with your ssh keys"
