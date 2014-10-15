@@ -38,6 +38,7 @@ Capistrano::Configuration.instance.load do
     task(:solr, roles: :web) { monit_config "solr" }
     task(:mysql, roles: :web) { monit_config "mysql" }
     task(:elasticsearch, roles: :web) { monit_config "elasticsearch" }
+    task(:memcached, roles: :web) { monit_config "memcached" }
 
     def monit_config(name, destination = nil)
       destination ||= "/etc/monit/conf.d/#{name}.conf"
