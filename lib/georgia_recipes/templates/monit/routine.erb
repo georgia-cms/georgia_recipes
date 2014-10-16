@@ -1,0 +1,5 @@
+check process <%= routine_name %> with pidfile <%= routine_pid %>
+  start program = "/etc/init.d/<%= routine_name %> start"
+    as uid <%= routine_user %> and gid <%= routine_user %>
+  stop program = "/etc/init.d/<%= routine_name %> stop"
+    as uid <%= routine_user %> and gid <%= routine_user %>
