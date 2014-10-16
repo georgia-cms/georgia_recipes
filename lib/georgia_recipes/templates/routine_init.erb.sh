@@ -6,28 +6,27 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Manage <%= routine_name %>
-# Description:       Start, Stop, Restart #{routine_name}
+# Description:       Start, Stop, Restart <%= routine_name %>
 ### END INIT INFO
 set -e
 
 NAME=<%= routine_name %>
 PIDFILE=<%= routine_pid %>
-DAEMON="/home/deployer/.rbenv/shims/bundle exec <%= routine_bin %>"
+DAEMON="/home/deployer/.rbenv/shims/bundle exec bin/rails runner -e production <%= routine_bin %>"
 DIR="<%= current_path %>"
-DAEMON_OPTS="RAILS_ENV=production"
 
 AS_USER=<%= routine_user %>
 set -u
 
 case "$1" in
   start)
-    echo -n "Starting #{routine_name}"
+    echo -n "Starting <%= routine_name %>"
     cd $DIR
-    $DAEMON_OPTS $DAEMON
+    $DAEMON
     echo "."
   ;;
   stop)
-    echo -n "Stopping #{routine_name}"
+    echo -n "Stopping <%= routine_name %>"
     pid=`cat "$PIDFILE"` 2> /dev/null
     if [ "$pid" != "" ]; then
       if ! kill $pid > /dev/null 2>&1; then
@@ -38,7 +37,7 @@ case "$1" in
     echo "."
   ;;
   restart)
-    echo -n "Restarting #{routine_name}"
+    echo -n "Restarting <%= routine_name %>"
     pid=`cat "$PIDFILE"` 2> /dev/null
     if [ "$pid" != "" ]; then
       if ! kill $pid > /dev/null 2>&1; then
@@ -47,7 +46,7 @@ case "$1" in
       rm $PIDFILE
     fi
     cd $DIR
-    $DAEMON_OPTS $DAEMON
+    $DAEMON
     echo "."
   ;;
 
