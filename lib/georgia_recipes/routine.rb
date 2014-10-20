@@ -17,25 +17,11 @@ Capistrano::Configuration.instance.load do
       run "#{sudo} update-rc.d -f #{routine_name} defaults"
     end
 
-    desc "Start #{routine_name} master process"
-    task :start, :roles => :app, :except => {:no_release => true} do
-      run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec #{routine_bin}"
-    end
-
-    desc "Stop #{routine_name}"
-    task :stop, :roles => :app, :except => {:no_release => true} do
-      run "#{sudo} kill -KILL $(cat #{routine_pid})"
-    end
-
-    desc "Restart #{routine_name}"
-    task :restart, :roles => :app, :except => {:no_release => true} do
-      stop
-      start
-    end
-
-    desc "Shutdown #{routine_name}"
-    task :shutdown, :roles => :app, :except => {:no_release => true} do
-      run "#{sudo} service #{routine_name} force-stop"
+    %w(start stop restart).each do |task_method|
+      desc "#{task_method.humanize} #{routine_name} master process"
+      task task_method, roles: :app do
+        run "#{sudo} service #{routine_name} #{task_method}"
+      end
     end
 
     task :monit, roles: :app do
