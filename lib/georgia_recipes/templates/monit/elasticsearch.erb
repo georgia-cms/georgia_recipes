@@ -4,4 +4,5 @@ check process elasticsearch with pidfile /var/run/elasticsearch.pid
   if cpu > 90% for 15 cycles then alert
   if totalmem > 90% for 15 cycles then alert
   if loadavg(15min) greater than 10 for 50 cycles then alert
+  if failed host 127.0.0.1 port 9200 then restart
   group elasticsearch
