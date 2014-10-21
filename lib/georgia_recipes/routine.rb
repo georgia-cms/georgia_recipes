@@ -18,7 +18,7 @@ Capistrano::Configuration.instance.load do
     end
 
     %w(start stop restart).each do |task_method|
-      desc "#{task_method.humanize} #{routine_name} master process"
+      desc "#{task_method} #{routine_name} master process"
       task task_method, roles: :app do
         run "#{sudo} service #{routine_name} #{task_method}"
       end
