@@ -25,7 +25,7 @@ Capistrano::Configuration.instance.load do
     end
 
     task :monit, roles: :app do
-      destination ||= "/etc/monit/conf.d/routine.conf"
+      destination ||= "/etc/monit/conf.d/#{routine_name}.conf"
       template "monit/routine.erb", "/tmp/monit_routine"
       run "#{sudo} mv /tmp/monit_routine #{destination}"
       run "#{sudo} chown root:root #{destination}"
