@@ -13,8 +13,11 @@ Capistrano::Configuration.instance.load do
     end
 
     task :config, roles: :app do
+      monit_config_destination = "/etc/monit/monitrc"
       template("monitrc.erb", "/tmp/monitrc")
-      run "#{sudo} mv -u /tmp/monitrc /etc/monit/monitrc"
+      run "#{sudo} mv -u /tmp/monitrc #{monit_config_destination}"
+      run "#{sudo} chown root:root #{monit_config_destination}"
+      run "#{sudo} chmod 600 #{monit_config_destination}"
     end
     
     %w[start stop restart syntax reload].each do |command|
