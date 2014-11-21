@@ -1,7 +1,8 @@
 Capistrano::Configuration.instance.load do
 
   set_default(:monit_mail_server) { ask("What is the monit mail server?")}
-  set_default(:monit_email_from) { ask("What from address to use when monit sends emails?") }
+  set_default(:monit_email_from) { ask("Which email address should monit send emails from: ") }
+  set_default(:monit_email_to) { ask("Which email address should monit send emails to: ") }
   set_default(:monit_user_credentials) { ask("What are the monit user credentials - user:password - for the monit web server?") }
 
   namespace :monit do

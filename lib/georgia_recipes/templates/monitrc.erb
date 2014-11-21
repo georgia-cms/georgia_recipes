@@ -3,6 +3,7 @@ set logfile /var/log/monit.log
 set idfile /var/lib/monit/id
 set statefile /var/lib/monit/state
 set mailserver <%= monit_mail_server %>
+set alert <%= monit_email_to %>
 set eventqueue
   basedir /var/lib/monit/events
   slots 100                    
