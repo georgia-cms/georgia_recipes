@@ -1,4 +1,9 @@
 Capistrano::Configuration.instance.load do
+
+  set_default(:monit_mail_server) { ask("What is the monit mail server?")}
+  set_default(:monit_email_from) { ask("What from address to use when monit sends emails?") }
+  set_default(:monit_user_credentials) { ask("What are the monit user credentials - user:password - for the monit web server?") }
+
   namespace :monit do
 
     desc "Install Monit. Requires Chef (chef:install)"
@@ -8,11 +13,10 @@ Capistrano::Configuration.instance.load do
     end
 
     task :config, roles: :app do
-      template "monit.node.json.erb", "node.json"
-      template "chef-solo.rb.erb", "solo.rb"
-      run "#{sudo} chef-solo -j node.json -c solo.rb"
+      template("monitrc.erb", "/tmp/monitrc")
+      run "#{sudo} mv -u /tmp/monitrc /etc/monit/monitrc"
     end
-
+    
     %w[start stop restart syntax reload].each do |command|
       desc "Run Monit #{command} script"
       task command do
@@ -25,7 +29,6 @@ Capistrano::Configuration.instance.load do
     desc "Setup all Monit configuration for default Rails stack"
     task :setup do
       nginx
-      postgresql
       unicorn
       syntax
       reload
