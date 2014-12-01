@@ -20,7 +20,7 @@ Capistrano::Configuration.instance.load do
       run "#{sudo} chown root:root #{monit_config_destination}"
       run "#{sudo} chmod 600 #{monit_config_destination}"
     end
-    
+
     %w[start stop restart syntax reload].each do |command|
       desc "Run Monit #{command} script"
       task command do
