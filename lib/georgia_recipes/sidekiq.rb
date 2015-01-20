@@ -1,8 +1,17 @@
 Capistrano::Configuration.instance.load do
+
+  set_default(:sidekiq_pid) { "#{shared_path}/pids/sidekiq.pid" }
+  set_default(:sidekiq_log) { "#{shared_path}/log/sidekiq.log" }
+
   namespace :sidekiq do
 
-    desc "Generate the sidekiq.yml configuration file."
     task :setup, roles: :app do
+      template("sidekiq.erb", "/tmp/sidekiq")
+      run "#{sudo} mv -u /tmp/sidekiq /etc/init/sidekiq.conf"
+    end
+
+    desc "Generate a 'default' sidekiq.yml configuration file."
+    task :config, roles: :app do
       run "mkdir -p #{shared_path}/config"
       template "sidekiq.yml.erb", "#{shared_path}/config/sidekiq.yml"
     end

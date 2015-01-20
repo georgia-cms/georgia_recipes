@@ -1,0 +1,10 @@
+description "Sidekiq Background Worker"
+
+start on runlevel [23]
+stop on shutdown
+
+normal exit 0 TERM
+
+exec sudo -u deployer /bin/bash -l -c 'cd <%= current_path %> && bundle exec sidekiq --index 0 --pidfile <%= sidekiq_pid %> --environment <%= rails_env %> --logfile <%= sidekiq_log %> --daemon'
+
+respawn

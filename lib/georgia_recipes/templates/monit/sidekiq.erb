@@ -1,3 +1,5 @@
-check process sidekiq with pidfile <%= shared_path %>/pids/sidekiq.pid
-  start program = "/usr/bin/sudo su <%= user %> /bin/bash -c 'export PATH="$HOME/.rbenv/bin:$PATH" ; eval "$(rbenv init -)"; cd <%= current_path %>; RAILS_ENV=<%= rails_env %> bundle exec sidekiq -d -C config/sidekiq.yml -P <%= shared_path %>/pids/sidekiq.pid -L log/sidekiq.log'" with timeout 90 seconds
-  stop program = "/bin/bash -c '/bin/kill -TERM `cat <%= shared_path %>/pids/sidekiq.pid`'" with timeout 180 seconds
+check process sidekiq with pidfile <%= sidekiq_pid %>
+  start program = "/bin/bash -l -c 'cd <%= current_path %> && bundle exec sidekiq --index 0 --pidfile <%= sidekiq_pid %> --environment <%= rails_env %> --logfile <%= sidekiq_log %> --daemon'"
+  stop program = "/bin/bash -l -c 'cd <%= current_path %> && bundle exec sidekiqctl stop <%= sidekiq_pid %> 10'"
+  if totalmem is greater than 512 MB for 3 cycles then restart
+  if 3 restarts within 5 cycles then timeout

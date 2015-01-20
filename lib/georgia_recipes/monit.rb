@@ -41,6 +41,7 @@ Capistrano::Configuration.instance.load do
     task(:nginx, roles: :web) { monit_config "nginx" }
     task(:postgresql, roles: :db) { monit_config "postgresql" }
     task(:unicorn, roles: :app) { monit_config "unicorn" }
+    task(:redis, roles: :app) { monit_config "redis" }
     task(:sidekiq, roles: :app) { monit_config "sidekiq" }
     task(:solr, roles: :web) { monit_config "solr" }
     task(:mysql, roles: :web) { monit_config "mysql" }

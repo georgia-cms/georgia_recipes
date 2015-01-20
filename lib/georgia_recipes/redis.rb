@@ -8,7 +8,6 @@ Capistrano::Configuration.instance.load do
       run "#{sudo} apt-get -y install redis-server"
     end
 
-
     desc "Setup redis-server"
     task :setup, roles: :web do
       run "#{sudo} update-rc.d redis-server disable"
