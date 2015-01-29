@@ -6,7 +6,7 @@ set mailserver <%= monit_mail_server %>
 set alert <%= monit_email_to %>
 set eventqueue
   basedir /var/lib/monit/events
-  slots 100                    
+  slots 100
   set mail-format { from: <%= monit_email_from %> }
 set httpd port 2812 and allow <%= monit_user_credentials %>
 include /etc/monit/conf.d/*

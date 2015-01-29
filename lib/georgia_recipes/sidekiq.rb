@@ -6,8 +6,10 @@ Capistrano::Configuration.instance.load do
   namespace :sidekiq do
 
     task :setup, roles: :app do
-      template("sidekiq.erb", "/tmp/sidekiq")
-      run "#{sudo} mv -u /tmp/sidekiq /etc/init/sidekiq.conf"
+      template("init.d/sidekiq.erb.sh", "/tmp/sidekiq")
+      run "#{sudo} chmod +x /tmp/sidekiq"
+      run "#{sudo} mv -u /tmp/sidekiq /etc/init.d/sidekiq"
+      run "#{sudo} update-rc.d -f sidekiq defaults"
     end
 
     desc "Generate a 'default' sidekiq.yml configuration file."

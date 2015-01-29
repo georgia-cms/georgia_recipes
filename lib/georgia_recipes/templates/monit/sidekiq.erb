@@ -1,5 +1,5 @@
 check process sidekiq with pidfile <%= sidekiq_pid %>
-  start program = "/bin/bash -l -c 'cd <%= current_path %> && bundle exec sidekiq --index 0 --pidfile <%= sidekiq_pid %> --environment <%= rails_env %> --logfile <%= sidekiq_log %> --daemon'"
-  stop program = "/bin/bash -l -c 'cd <%= current_path %> && bundle exec sidekiqctl stop <%= sidekiq_pid %> 10'"
+  start program = "/etc/init.d/sidekiq start"
+  stop program = "/etc/init.d/sidekiq stop"
   if totalmem is greater than 512 MB for 3 cycles then restart
   if 3 restarts within 5 cycles then timeout
